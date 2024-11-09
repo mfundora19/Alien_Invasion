@@ -89,7 +89,7 @@ The goal is to shoot down all alien ships before they reach the bottom of the sc
 
 ## Credits
 
-Alien_Invasion was developed by [Marcos Fundora](https://github.com/mfundora19). Special thanks to the open-source community for tools, inspiration, and resources.
+Alien_Invasion was developed by [Marcos](https://github.com/mfundora19). Special thanks to the open-source community for tools, inspiration, and resources.
 
 ---
 
