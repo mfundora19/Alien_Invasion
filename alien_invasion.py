@@ -33,6 +33,12 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
             self._update_screen()
+
+            # Get rud of bullets that have gone off the screen.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            print(len(self.bullets))
             
             self.clock.tick(60)
 
