@@ -1,10 +1,12 @@
 import sys
 import pygame
 
+from random import randint
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
+from star import Star
 
 
 class AlienInvasion:
@@ -25,8 +27,10 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.stars = pygame.sprite.Group()
 
         self._create_fleet()
+        self._create_stars()
 
     def run_game(self):
         '''Start the main loop for the game'''
@@ -107,7 +111,7 @@ class AlienInvasion:
         alien_width, alien_height = alien.rect.size
 
         current_x, current_y = alien_width, alien_height
-        while current_y < (self.settings.screen_height - 2.5 * alien_height):
+        while current_y < (self.settings.screen_height - 3 * alien_height):
             while current_x < (self.settings.screen_width - 2*alien_width):
                 self._create_alien(current_x, current_y)
                 current_x += 2*alien_width
@@ -115,6 +119,33 @@ class AlienInvasion:
             # Finished a row; reset x value, and increment y value
             current_x = alien_width
             current_y += 2*alien_height
+    def _create_stars(self):
+        '''Create a set of stars in the sky in a grid-aligned pattern with random offsets.'''
+        
+        # Define the spacing between stars
+        grid_spacing_x = 150  # Adjust for horizontal spacing between stars
+        grid_spacing_y = 150  # Adjust for vertical spacing between stars
+
+        # Calculate number of rows and columns based on screen dimensions
+        num_cols = self.settings.screen_width // grid_spacing_x
+        num_rows = self.settings.screen_height // grid_spacing_y
+        
+        # Loop through each grid cell and create a star with a slight random offset
+        for row in range(num_rows):
+            for col in range(num_cols):
+                # Randomly decide whether to create a star in this cell
+                if randint(0, 1):  # Randomly decide if a star should be created in this cell
+                    new_star = Star()
+                    
+                    # Calculate grid-aligned position with random offset
+                    x_pos = col * grid_spacing_x + randint(-10, 10)  # Random offset within +/- 10 pixels
+                    y_pos = row * grid_spacing_y + randint(-10, 10)
+                    
+                    new_star.rect.x = x_pos
+                    new_star.rect.y = y_pos
+                    self.stars.add(new_star)
+
+        
 
     def _create_alien(self, x_position, y_position):
         '''Create an alien and place it in the row'''
@@ -132,8 +163,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         
+        self.stars.draw(self.screen)
         self.ship.blitme()
         self.aliens.draw(self.screen)
+        
 
         # Make the most recently drawn screen visible
         pygame.display.flip()
