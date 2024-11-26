@@ -123,6 +123,7 @@ class AlienInvasion:
 
         self.settings.initialize_dynamic_settings()
         self.stats.reset_stats()
+        self.sb.prep_score()
         self.game_active = True
 
         self.bullets.empty()
