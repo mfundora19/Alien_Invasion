@@ -9,6 +9,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from star import Star
+from button import Button
 
 
 class AlienInvasion:
@@ -25,7 +26,10 @@ class AlienInvasion:
         pygame.display.set_caption('Alien Invasion')
 
         # Start Alien Invasion in an active state
-        self.game_active = True
+        self.game_active = False
+
+        # Make the Play button
+        self.play_button = Button(self, "Play")
 
         # Create the Objects
         self.clock = pygame.time.Clock()
@@ -242,6 +246,10 @@ class AlienInvasion:
         self.stars.draw(self.screen)
         self.ship.blitme()
         self.aliens.draw(self.screen)
+
+        # Draw the Play button if game is inactive
+        if not self.game_active:
+            self.play_button.draw_button()
         
 
         # Make the most recently drawn screen visible
