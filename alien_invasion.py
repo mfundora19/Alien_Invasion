@@ -40,6 +40,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
+            self.aliens.update()
             self._update_screen()
 
             # Get rud of bullets that have gone off the screen.
