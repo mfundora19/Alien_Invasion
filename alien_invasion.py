@@ -118,6 +118,8 @@ class AlienInvasion:
             
     def _reset_game(self):
         '''Reset all the stats and game stats'''
+
+        self.settings.initialize_dynamic_settings()
         self.stats.reset_stats()
         self.game_active = True
 
