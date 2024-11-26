@@ -128,8 +128,9 @@ class AlienInvasion:
 
         self.bullets.empty()
         self.aliens.empty()
-        self._create_fleet()
         self.ship.center_ship()
+        self._create_fleet()
+        
 
         # Hide the mouse cursor
         pygame.mouse.set_visible(False)
