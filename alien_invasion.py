@@ -5,6 +5,7 @@ from time import sleep
 from random import randint
 from settings import Settings
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -34,6 +35,7 @@ class AlienInvasion:
         # Create the Objects
         self.clock = pygame.time.Clock()
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -276,6 +278,7 @@ class AlienInvasion:
         self.stars.draw(self.screen)
         self.ship.blitme()
         self.aliens.draw(self.screen)
+        self.sb.show_score()
 
         # Draw the Play button if game is inactive
         if not self.game_active:
