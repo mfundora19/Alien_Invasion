@@ -39,14 +39,9 @@ class AlienInvasion:
             # Watch for keyboard and mouse events.
             self._check_events()
             self.ship.update()
-            self.bullets.update()
+            self._update_bullets()
             self._update_aliens()
             self._update_screen()
-
-            # Get rud of bullets that have gone off the screen.
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
             
             
             self.clock.tick(60)
@@ -146,7 +141,17 @@ class AlienInvasion:
                     new_star.rect.y = y_pos
                     self.stars.add(new_star)
 
-        
+    def _update_bullets(self):
+        '''Update position of bullets and get rid of old bullets'''
+
+        # Update bullet position
+        self.bullets.update()
+
+        # Get rid of bullets that have gone off the screen.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+
     # Aliens
     def _create_alien(self, x_position, y_position):
         '''Create an alien and place it in the row'''
@@ -167,7 +172,6 @@ class AlienInvasion:
             if alien.check_edges():
                 self._change_fleet_direction()
                 break
-
     def _change_fleet_direction(self):
         '''Drop the entire fleet and change fleet's direction'''
 
