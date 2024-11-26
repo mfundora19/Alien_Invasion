@@ -40,7 +40,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self.bullets.update()
-            self.aliens.update()
+            self._update_aliens()
             self._update_screen()
 
             # Get rud of bullets that have gone off the screen.
@@ -147,7 +147,7 @@ class AlienInvasion:
                     self.stars.add(new_star)
 
         
-
+    # Aliens
     def _create_alien(self, x_position, y_position):
         '''Create an alien and place it in the row'''
         new_alien = Alien(self)
@@ -155,6 +155,10 @@ class AlienInvasion:
         new_alien.rect.x = x_position
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
+    def _update_aliens(self):
+        '''Update the positions of all aliens in the fleet'''
+        self.aliens.update()
+
 
     def _update_screen(self):
         '''Update images on the screen, and flip the new screen.'''
