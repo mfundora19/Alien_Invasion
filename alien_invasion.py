@@ -156,9 +156,25 @@ class AlienInvasion:
         new_alien.rect.y = y_position
         self.aliens.add(new_alien)
     def _update_aliens(self):
-        '''Update the positions of all aliens in the fleet'''
+        '''Update the positions of all aliens in the fleet if alien hit an edge'''
+        self._check_fleet_edges()
         self.aliens.update()
 
+    def _check_fleet_edges(self):
+        '''Respond appropriately if anu aliens have reached an edge'''
+
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        '''Drop the entire fleet and change fleet's direction'''
+
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.alien_drop_speed
+
+        self.settings.alien_direction *= -1
 
     def _update_screen(self):
         '''Update images on the screen, and flip the new screen.'''
