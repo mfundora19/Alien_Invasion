@@ -209,6 +209,7 @@ class AlienInvasion:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
+            self.sb.check_high_score()
 
     # Aliens
     def _create_alien(self, x_position, y_position):
