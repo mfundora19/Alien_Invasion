@@ -125,6 +125,7 @@ class AlienInvasion:
         self.stats.reset_stats()
         self.sb.prep_score()
         self.sb.prep_level()
+        self.sb.prep_ships()
         self.game_active = True
 
         self.bullets.empty()
@@ -264,8 +265,9 @@ class AlienInvasion:
     def _ship_hit(self):
         '''Respond to the ship being hit by an alien'''
         if self.stats.ships_left > 0:
-            # Decrement ships left
+            # Decrement ships left & update scoreboard
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Get rid of any remaining bullets and aliens
             self.bullets.empty()
@@ -280,6 +282,7 @@ class AlienInvasion:
             sleep(0.5)
         else:
             self.game_active = False
+            self.aliens.empty()
             pygame.mouse.set_visible(True)
 
     def _update_screen(self):
@@ -299,6 +302,7 @@ class AlienInvasion:
         # Draw the Play button if game is inactive
         if not self.game_active:
             self.play_button.draw_button()
+            self.aliens.empty()
         
 
         # Make the most recently drawn screen visible
